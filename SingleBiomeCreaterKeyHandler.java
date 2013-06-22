@@ -1,4 +1,4 @@
-package nurseangel.SingleBiomeCreater;
+package mods.nurseangel.singlebiomecreater;
 
 import java.util.EnumSet;
 
@@ -81,7 +81,7 @@ public class SingleBiomeCreaterKeyHandler extends KeyHandler {
 	// コンフィグを引数のバイオームにセットして保存
 	private void setConfigNowBiome(String biomeName) {
 		// 強制的に上書きしてるが、これが正しい方法なのかは不明
-		configFile.categories.get(Configuration.CATEGORY_GENERAL).get(nowBiome).value = biomeName;
+		configFile.getCategory(Configuration.CATEGORY_GENERAL).get(nowBiome).set(biomeName);
 		configFile.save();
 	}
 
@@ -214,7 +214,6 @@ public class SingleBiomeCreaterKeyHandler extends KeyHandler {
 				nextID = getnextID(nextID);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			return -1;
 		}
 

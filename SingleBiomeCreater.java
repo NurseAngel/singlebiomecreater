@@ -1,10 +1,9 @@
-package nurseangel.SingleBiomeCreater;
+package mods.nurseangel.singlebiomecreater;
 
 import java.util.logging.Level;
 
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
 
 import org.lwjgl.input.Keyboard;
 
@@ -27,7 +26,7 @@ public class SingleBiomeCreater {
 
 	public Configuration cfg;
 	public SingleBiomeCreaterKeyHandler onlyBiomeKeyHandler;
-	private boolean isEnabled;
+	private boolean isEnabled = false;
 
 	// コンストラクタ的なもの
 	@Mod.PreInit
@@ -38,18 +37,24 @@ public class SingleBiomeCreater {
 		try {
 			cfg.load();
 
-			//有効
+			// 有効
 			isEnabled = cfg.get(Configuration.CATEGORY_GENERAL, "isEnabled", true, "If you want to disable, set false").getBoolean(true);
 
-			// バインドキー
-			String comment = "If you set " + SingleBiomeCreaterKeyHandler.bindingKey + " to 0, you can use this for DISPLAY BIOME MOD";
-			bindingKey = cfg.get(Configuration.CATEGORY_GENERAL, SingleBiomeCreaterKeyHandler.bindingKey, Keyboard.KEY_K, comment).getInt();
+			if(isEnabled){
 
-			comment = "Show now create biome";
-			bindingKeyDisp = cfg.get(Configuration.CATEGORY_GENERAL, SingleBiomeCreaterKeyHandler.bindingKeyDisp, Keyboard.KEY_L, comment).getInt();
+				// バインドキー
+				String comment = "If you set " + SingleBiomeCreaterKeyHandler.bindingKey + " to 0, you can use this for DISPLAY BIOME MOD";
+				bindingKey = cfg.get(Configuration.CATEGORY_GENERAL, SingleBiomeCreaterKeyHandler.bindingKey, Keyboard.KEY_K, comment).getInt();
 
-			// バイオーム初期値
-			nowBiome = cfg.get(Configuration.CATEGORY_GENERAL, SingleBiomeCreaterKeyHandler.nowBiome, SingleBiomeCreaterKeyHandler.nowBiomeDefault, "Now biome").value;
+				comment = "Show now create biome";
+				bindingKeyDisp = cfg.get(Configuration.CATEGORY_GENERAL, SingleBiomeCreaterKeyHandler.bindingKeyDisp, Keyboard.KEY_L, comment).getInt();
+
+				// バイオーム初期値
+				nowBiome = cfg
+						.get(Configuration.CATEGORY_GENERAL, SingleBiomeCreaterKeyHandler.nowBiome, SingleBiomeCreaterKeyHandler.nowBiomeDefault, "Now biome")
+						.getString();
+
+			}
 
 		} catch (Exception e) {
 			FMLLog.log(Level.SEVERE, Reference.MOD_NAME + " config Load failed... ");
@@ -63,10 +68,10 @@ public class SingleBiomeCreater {
 	@Mod.PostInit
 	public void modInit(FMLPostInitializationEvent event) {
 
-		//無効
-		if(!isEnabled){
-			return;		}
-
+		// 無効
+		if (!isEnabled) {
+			return;
+		}
 
 		/*
 		 * バイオーム表示キーだけが有効であればバイオーム表示機能のみ バイオーム切り替えキーが有効であればそちらも

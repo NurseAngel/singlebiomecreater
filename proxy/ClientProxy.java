@@ -1,4 +1,4 @@
-package nurseangel.SingleBiomeCreater.proxy;
+package mods.nurseangel.singlebiomecreater.proxy;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

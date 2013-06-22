@@ -1,4 +1,4 @@
-package nurseangel.SingleBiomeCreater.proxy;
+package mods.nurseangel.singlebiomecreater.proxy;
 
 public class CommonProxy {
 
